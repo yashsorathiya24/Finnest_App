@@ -123,7 +123,10 @@ class LoginActivity : AppCompatActivity() {
                     if (response.isSuccessful && response.body() != null) {
                         val loginResponse = response.body()
                         Toast.makeText(applicationContext, loginResponse?.message ?: "Login successful", Toast.LENGTH_LONG).show()
-                        // Proceed to next screen
+                        // ✅ Go to DashboardActivity
+                        val intent = Intent(this@LoginActivity, DashboardActivity::class.java)
+                        startActivity(intent)
+                        finish() // Optional
                     } else {
                         val errorBody = response.errorBody()?.string()
                         val errorMessage = try {
