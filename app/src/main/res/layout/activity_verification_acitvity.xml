@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    tools:context=".VerificationAcitvity">
+    tools:context=".VerificationActivity">
 
     <!-- Guidelines -->
     <androidx.constraintlayout.widget.Guideline
@@ -14,14 +14,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="24dp"/>
+        app:layout_constraintGuide_begin="16dp"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineEnd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_end="24dp"/>
+        app:layout_constraintGuide_end="16dp"/>
 
     <TextView
         android:id="@+id/verificationTitle"
@@ -61,24 +61,25 @@
     <!-- OTP Input -->
     <LinearLayout
         android:id="@+id/otpContainer"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="32dp"
         android:gravity="center"
+        android:paddingHorizontal="8dp"
         app:layout_constraintTop_toBottomOf="@id/verificationDesLabel"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:baselineAligned="false"
-        android:weightSum="4">
+        app:layout_constraintStart_toStartOf="@id/guidelineStart"
+        app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+        android:baselineAligned="false">
 
         <!-- OTP Digit 1 -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/otpLayout1"
-            android:layout_width="58dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             app:hintEnabled="false"
-            android:layout_margin="4dp">
+            android:layout_marginHorizontal="4dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/otp1"
@@ -94,10 +95,11 @@
         <!-- OTP Digit 2 -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/otpLayout2"
-            android:layout_width="58dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             app:hintEnabled="false"
-            android:layout_margin="4dp">
+            android:layout_marginHorizontal="4dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/otp2"
@@ -113,10 +115,11 @@
         <!-- OTP Digit 3 -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/otpLayout3"
-            android:layout_width="58dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             app:hintEnabled="false"
-            android:layout_margin="4dp">
+            android:layout_marginHorizontal="4dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/otp3"
@@ -132,13 +135,54 @@
         <!-- OTP Digit 4 -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/otpLayout4"
-            android:layout_width="58dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             app:hintEnabled="false"
-            android:layout_margin="4dp">
+            android:layout_marginHorizontal="4dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/otp4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:maxLength="1"
+                android:hint="-"
+                android:gravity="center"
+                android:textSize="20sp"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- OTP Digit 5 -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/otpLayout5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:hintEnabled="false"
+            android:layout_marginHorizontal="4dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/otp5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:maxLength="1"
+                android:hint="-"
+                android:gravity="center"
+                android:textSize="20sp"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- OTP Digit 6 -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/otpLayout6"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:hintEnabled="false"
+            android:layout_marginHorizontal="4dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/otp6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
@@ -196,5 +240,18 @@
         app:layout_constraintTop_toBottomOf="@id/signUpLayout"
         app:layout_constraintStart_toStartOf="@id/guidelineStart"
         app:layout_constraintEnd_toEndOf="@id/guidelineEnd"/>
+
+    <!-- Centered Progress Bar -->
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        style="@style/Widget.AppCompat.ProgressBar"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

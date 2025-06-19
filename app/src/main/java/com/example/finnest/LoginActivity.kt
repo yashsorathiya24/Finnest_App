@@ -7,12 +7,19 @@ import android.text.TextWatcher
 import android.util.Patterns
 import android.widget.Button
 import android.widget.TextView
-import androidx.activity.enableEdgeToEdge
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import com.example.finnest.api.RetrofitClient
+import com.example.finnest.models.LoginRequest
+import com.example.finnest.models.LoginResponse
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import androidx.appcompat.app.AlertDialog
+import org.json.JSONObject
+
 
 class LoginActivity : AppCompatActivity() {
 
@@ -106,6 +113,39 @@ class LoginActivity : AppCompatActivity() {
         if (isValid) {
             // TODO: Proceed with login
             // startActivity(Intent(this, DashboardActivity::class.java))
+            val email = emailEditText.text.toString().trim();
+            val password = passwordEditText.text.toString().trim();
+
+            val loginRequest = LoginRequest(email, password)
+
+            RetrofitClient.instance.userLogin(loginRequest).enqueue(object : Callback<LoginResponse> {
+                override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
+                    if (response.isSuccessful && response.body() != null) {
+                        val loginResponse = response.body()
+                        Toast.makeText(applicationContext, loginResponse?.message ?: "Login successful", Toast.LENGTH_LONG).show()
+                        // Proceed to next screen
+                    } else {
+                        val errorBody = response.errorBody()?.string()
+                        val errorMessage = try {
+                            val jsonObject = JSONObject(errorBody ?: "")
+                            jsonObject.getString("error")  // or jsonObject.getString("message") depending on your API
+                        } catch (e: Exception) {
+                            "Invalid credentials. Please try again."
+                        }
+
+                        AlertDialog.Builder(this@LoginActivity)
+                            .setTitle("Login Failed")
+                            .setMessage(errorMessage)
+                            .setPositiveButton("OK") { dialog, _ -> dialog.dismiss() }
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show()
+                    }
+                }
+
+                override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+                    Toast.makeText(applicationContext, t.message, Toast.LENGTH_LONG).show()
+                }
+            })
         }
     }
 

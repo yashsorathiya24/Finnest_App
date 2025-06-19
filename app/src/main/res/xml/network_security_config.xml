@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">192.168.163.127</domain> <!-- emulator IP for localhost -->
+    </domain-config>
+</network-security-config>
